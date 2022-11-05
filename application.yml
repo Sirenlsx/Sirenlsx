@@ -3,15 +3,39 @@ spring:
     active: dev
 
 ---
+
+server: 
+  port: 9000
+
 spring: 
   profiles: dev
   application: 
     name: springcloud-config-dev
 
 
+eureka:
+  instance:
+    hostname: shadow7001.com #服务端的实例名称
+  client:
+    service-url:  #注册地址
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/,http://shadow7002.com:7002/eureka/,http://shadow7003.com:7003/eureka/
+
+
 
 ---
+server: 
+  port: 9001
+
+
+
 spring: 
   profiles: test
   application: 
     name: springcloud-config-test
+    
+eureka:
+  instance:
+    hostname: shadow7001.com #服务端的实例名称
+  client:
+    service-url:  #注册地址
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/,http://shadow7002.com:7002/eureka/,http://shadow7003.com:7003/eureka/
